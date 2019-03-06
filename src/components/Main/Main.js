@@ -1,14 +1,44 @@
 import React, { Component } from 'react';
 import Movies from '../Movies/Movies';
+import Starships from '../Starships/Starships';
+import Info from '../Info/Info';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       movies: [],
+      starships: [],
+      info: {},
       error: null,
       isLoading: true,
     }
+    this.handleClickMovies = this.handleClickMovies.bind(this);
+    this.handleClickStarships = this.handleClickStarships.bind(this);
+  }
+
+  handleClickMovies(handleMovies) {
+    Promise.all(handleMovies.map(url => fetch(url)))
+      .then(response => Promise.all(response.map(r => r.json())))
+      .then(result => {
+        this.setState({ 
+        starships: result,
+        isLoading: false,
+        })
+      })
+      .catch(error => 
+        this.setState({
+          error,
+          isLoading: false,
+        })
+      );
+  }
+
+  handleClickStarships(handleStarships) {
+    console.log(handleStarships)
+    this.setState({
+      info: handleStarships
+    })
   }
 
   componentDidMount() {
@@ -29,7 +59,7 @@ class Main extends Component {
   }
 
   render() {
-    const { movies, isLoading, error } = this.state;
+    const { movies, starships, info, isLoading, error } = this.state;
     if(isLoading){
       return <p>Cargando...</p>
     }
@@ -38,7 +68,9 @@ class Main extends Component {
     }
     return(
       <div>
-        <Movies movies={movies} />
+        <Movies movies={movies} handleMovies={this.handleClickMovies} />
+        <Starships starships={starships} handleStarships={this.handleClickStarships} />
+        <Info info={info}/>
       </div>
     )
   }

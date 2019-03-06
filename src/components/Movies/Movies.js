@@ -20,7 +20,7 @@ function Movies(props) {
               <th>{movie.title}</th>
               <th>{movie.director}</th>
               <th>{movie.release_date}</th>
-              <th><button>Consultar</button></th>
+              <th><button onClick={()=> props.handleMovies(movie.starships)}>Consultar</button></th>
             </tr>
           )}
         </tbody>
