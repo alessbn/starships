@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from '../Form/Form';
 
 function Info(props){
   return(
@@ -20,8 +21,9 @@ function Info(props){
           <li>MGLT:{props.info.MGLT}</li>
           <li>Clase de nave:{props.info.starship_class}</li>
         </ul>
+        <button>Modificar</button>
+        <Form />
       </div>
-      <button>Modificar</button>
     </div>
   )
 }

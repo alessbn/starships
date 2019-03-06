@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import Nav from '../Nav/Nav'
 import Movies from '../Movies/Movies';
 import Starships from '../Starships/Starships';
 import Info from '../Info/Info';
-import Form from '../Form/Form';
 
 class Main extends Component {
   constructor(props) {
@@ -13,9 +13,41 @@ class Main extends Component {
       info: {},
       error: null,
       isLoading: true,
+      displayMovies: true,
+      displayStarships: false,
+      displayInfo: false,
     }
     this.handleClickMovies = this.handleClickMovies.bind(this);
     this.handleClickStarships = this.handleClickStarships.bind(this);
+    this.handleClickMenu = this.handleClickMenu.bind(this);
+  }
+
+  handleClickMenu(e) {
+    switch (e.target.id){
+      case 'home-menu':
+        this.setState({
+          displayMovies: true,
+          displayStarships: false,
+          displayInfo: false,
+        });
+        break;
+      case 'starships-menu':
+        this.setState({
+          displayMovies: false,
+          displayStarships: true,
+          displayInfo: false,
+        });
+        break;
+      case 'info-menu':
+        this.setState({
+          displayMovies: false,
+          displayStarships: false,
+          displayInfo: true,
+        });
+        break;
+      default:
+        break;
+    }
   }
 
   handleClickMovies(handleMovies) {
@@ -25,6 +57,9 @@ class Main extends Component {
         this.setState({ 
         starships: result,
         isLoading: false,
+        displayMovies: false,
+        displayStarships: true,
+        displayInfo: false,
         })
       })
       .catch(error => 
@@ -37,7 +72,10 @@ class Main extends Component {
 
   handleClickStarships(handleStarships) {
     this.setState({
-      info: handleStarships
+      info: handleStarships,
+      displayMovies: false,
+      displayStarships: false,
+      displayInfo: true,
     })
   }
 
@@ -68,10 +106,10 @@ class Main extends Component {
     }
     return(
       <div>
-        <Movies movies={movies} handleMovies={this.handleClickMovies} />
-        <Starships starships={starships} handleStarships={this.handleClickStarships} />
-        <Info info={info}/>
-        <Form info={info}/>
+        <Nav handleMenu={this.handleClickMenu} />
+        {this.state.displayMovies ? <Movies movies={movies} handleMovies={this.handleClickMovies} /> : null}
+        {this.state.displayStarships ? <Starships starships={starships} handleStarships={this.handleClickStarships} /> : null}
+        {this.state.displayInfo ? <Info info={info}/>  : null}
       </div>
     )
   }
