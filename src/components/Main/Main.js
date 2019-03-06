@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Movies from '../Movies/Movies';
 import Starships from '../Starships/Starships';
 import Info from '../Info/Info';
+import Form from '../Form/Form';
 
 class Main extends Component {
   constructor(props) {
@@ -35,7 +36,6 @@ class Main extends Component {
   }
 
   handleClickStarships(handleStarships) {
-    console.log(handleStarships)
     this.setState({
       info: handleStarships
     })
@@ -71,6 +71,7 @@ class Main extends Component {
         <Movies movies={movies} handleMovies={this.handleClickMovies} />
         <Starships starships={starships} handleStarships={this.handleClickStarships} />
         <Info info={info}/>
+        <Form info={info}/>
       </div>
     )
   }
