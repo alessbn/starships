@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
 
 class Formulario extends Component{
   constructor(props){
@@ -38,6 +39,18 @@ class Formulario extends Component{
     console.log(this.state.nombre);
     console.log(this.state.costo);
     console.log(this.state.pasajeros);
+    const json = {
+      nombre: this.state.nombre,
+      costo: this.state.costo,
+      pasajeros: this.state.pasajeros,
+    }
+
+    axios.post("https://stark-hollows-53245.herokuapp.com/api/starships/", json)
+      .then(resultado => {
+        console.log(resultado);
+        alert("Nave creada");
+      })
+      .catch(error => console.log(error))
   }
 
   render(){

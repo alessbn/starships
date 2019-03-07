@@ -5,8 +5,12 @@ function Header() {
   return(
   <header>
     <nav className="navbar navbar-dark bg-dark">
-      <img alt="logo" src={logo} width="30" height="30"/>
+      <div className="col-4">
+        <img alt="logo" src={logo} width="30" height="30"/>
+      </div>
+      <div className="col-8">
       <h1>Starships</h1>
+      </div>
     </nav>
   </header>
   );
