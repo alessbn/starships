@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Nav from '../Nav/Nav'
+import NavCol from '../Nav/NavCol';
 import Movies from '../Movies/Movies';
 import Starships from '../Starships/Starships';
 import Info from '../Info/Info';
@@ -22,8 +22,8 @@ class Main extends Component {
     this.handleClickMenu = this.handleClickMenu.bind(this);
   }
 
-  handleClickMenu(e) {
-    switch (e.target.id){
+  handleClickMenu(eventKey) {
+    switch (eventKey){
       case 'home-menu':
         this.setState({
           displayMovies: true,
@@ -105,11 +105,13 @@ class Main extends Component {
       return <p>{error.message}</p>
     }
     return(
-      <div>
-        <Nav handleMenu={this.handleClickMenu} />
-        {this.state.displayMovies ? <Movies movies={movies} handleMovies={this.handleClickMovies} /> : null}
-        {this.state.displayStarships ? <Starships starships={starships} handleStarships={this.handleClickStarships} /> : null}
-        {this.state.displayInfo ? <Info info={info}/>  : null}
+      <div className="container-fluid">
+        <div className="flex-xl-nowrap row">
+          <NavCol handleMenu={this.handleClickMenu} />
+          {this.state.displayMovies ? <Movies movies={movies} handleMovies={this.handleClickMovies} /> : null}
+          {this.state.displayStarships ? <Starships starships={starships} handleStarships={this.handleClickStarships} /> : null}
+          {this.state.displayInfo ? <Info info={info}/>  : null}
+        </div>
       </div>
     )
   }
